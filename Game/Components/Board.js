@@ -99,7 +99,7 @@ class Board extends Component {
       }
 
       if (allPressed) {
-        console.log("All pressed for player " + player.id);
+        this.props.allPressedForPlayer(player);
       }
     }
   }
