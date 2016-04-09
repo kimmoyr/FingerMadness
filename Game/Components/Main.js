@@ -22,7 +22,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showBoard: true,
+      showBoard: false,
       scores: {},
       lastWinner: null
     };
@@ -30,6 +30,8 @@ class Main extends Component {
     for (var player of players) {
       this.state.scores[player.id] = 0;
     }
+
+    this.showNewBoardAfterDelay();
   }
 
   componentWillUnmount() {
@@ -49,6 +51,10 @@ class Main extends Component {
       console.log("   Player " + p.id + ": " + this.state.scores[p.id]);
     }
 
+    this.showNewBoardAfterDelay();
+  }
+
+  showNewBoardAfterDelay() {
     this.timer = setTimeout(this.showNewBoard.bind(this), 5000);
   }
 
