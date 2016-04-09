@@ -10,7 +10,7 @@ class Wait extends Component {
     const color = this.props.winner ? this.props.winner.color : '#000000';
     return (
       <View style={[styles.container, { backgroundColor: color}]}>
-        <Text style={styles.waitText}>Wait</Text>
+        <Text style={styles.waitText}>Get ready for round {this.props.round}!</Text>
       </View>
     );
   }

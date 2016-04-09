@@ -34,16 +34,28 @@ class Main extends Component {
       gameWinner: null
     };
 
-    for (var player of players) {
-      this.state.scores[player.id] = 0;
-    }
+    this.reset();
   }
 
   componentWillUnmount() {
     clearTimeout(this.timer);
   }
 
+  reset() {
+    const state = this.state;
+    state.round = 0;
+    state.lastWinner = null;
+    state.gameWinner = null;
+
+    for (var player of players) {
+      state.scores[player.id] = 0;
+    }
+
+    this.setState(state);
+  }
+
   startPressed() {
+    this.reset();
     this.showNewBoardAfterDelay();
   }
 
@@ -110,11 +122,16 @@ class Main extends Component {
   }
 
   renderWaitScreen() {
-    return <Wait winner={this.state.lastWinner}/>;
+    return <Wait winner={this.state.lastWinner} round={this.state.round}/>;
   }
 
   renderStart() {
-    return <Start winner={this.state.gameWinner} onStartPressed={() => this.startPressed()}/>;
+    return (
+      <Start
+       players={players}
+       scores={this.state.gameWinner != null ? this.state.scores : null}
+       onStartPressed={() => this.startPressed()} />
+    );
   }
 
   render() {
