@@ -12,13 +12,14 @@ class Tile extends Component {
     };
 
     return (
-      <View style={[styles.tile, size]}/>
+      <View style={[styles.tile, size, this.props.position]}/>
     );
   }
 }
 
 const styles = StyleSheet.create({
   tile: {
+    position: 'absolute',
     backgroundColor: '#ec3a3a'
   }
 });
