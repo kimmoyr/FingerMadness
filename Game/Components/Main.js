@@ -5,6 +5,7 @@ import React, {
 
 import Board from './Board';
 import Wait from './Wait';
+import Start from './Start';
 
 const players = [
   {
@@ -22,6 +23,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      gameOn: false,
       showBoard: false,
       scores: {},
       lastWinner: null
@@ -30,12 +32,14 @@ class Main extends Component {
     for (var player of players) {
       this.state.scores[player.id] = 0;
     }
-
-    this.showNewBoardAfterDelay();
   }
 
   componentWillUnmount() {
     clearTimeout(this.timer);
+  }
+
+  startPressed() {
+    this.showNewBoardAfterDelay();
   }
 
   onAllPressedForPlayer(player) {
@@ -55,11 +59,15 @@ class Main extends Component {
   }
 
   showNewBoardAfterDelay() {
+    const state = this.state;
+    state.gameOn = true;
+    this.setState(state);
     this.timer = setTimeout(this.showNewBoard.bind(this), 5000);
   }
 
   showNewBoard(winner) {
     this.setState({
+      gameOn: true,
       showBoard: true,
       scores: this.state.scores,
       lastWinner: winner
@@ -79,8 +87,14 @@ class Main extends Component {
     return <Wait winner={this.state.lastWinner}/>;
   }
 
+  renderStart() {
+    return <Start winner={this.state.lastWinner} onStartPressed={() => this.startPressed()}/>;
+  }
+
   render() {
-    if (this.state.showBoard) {
+    if (!this.state.gameOn) {
+      return this.renderStart();
+    } else if (this.state.showBoard) {
       return this.renderBoard();
     } else {
       return this.renderWaitScreen();
