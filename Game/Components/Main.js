@@ -7,6 +7,9 @@ import Board from './Board';
 import Wait from './Wait';
 import Start from './Start';
 
+const ROUND_START_DELAY = 3000;
+const ROUNDS = 9;
+
 const players = [
   {
     id: 1,
@@ -25,8 +28,10 @@ class Main extends Component {
     this.state = {
       gameOn: false,
       showBoard: false,
+      round: 0,
       scores: {},
-      lastWinner: null
+      lastWinner: null,
+      gameWinner: null
     };
 
     for (var player of players) {
@@ -42,6 +47,21 @@ class Main extends Component {
     this.showNewBoardAfterDelay();
   }
 
+  finishGame() {
+    const state = this.state;
+    state.gameOn = false;
+    state.round = 0;
+
+    let bestScore = 0;
+    for (var player of players) {
+      if (this.state.scores[player.id] > bestScore) {
+        state.gameWinner = player;
+      }
+    }
+
+    this.setState(state);
+  }
+
   onAllPressedForPlayer(player) {
     console.log("All pressed for player " + player.id);
     const state = this.state;
@@ -55,20 +75,26 @@ class Main extends Component {
       console.log("   Player " + p.id + ": " + this.state.scores[p.id]);
     }
 
-    this.showNewBoardAfterDelay();
+    if (this.state.round < ROUNDS) {
+      this.showNewBoardAfterDelay();
+    } else {
+      this.finishGame();
+    }
   }
 
   showNewBoardAfterDelay() {
     const state = this.state;
     state.gameOn = true;
+    state.round++;
     this.setState(state);
-    this.timer = setTimeout(this.showNewBoard.bind(this), 5000);
+    this.timer = setTimeout(this.showNewBoard.bind(this), ROUND_START_DELAY);
   }
 
   showNewBoard(winner) {
     this.setState({
       gameOn: true,
       showBoard: true,
+      round: this.state.round,
       scores: this.state.scores,
       lastWinner: winner
     });
@@ -88,7 +114,7 @@ class Main extends Component {
   }
 
   renderStart() {
-    return <Start winner={this.state.lastWinner} onStartPressed={() => this.startPressed()}/>;
+    return <Start winner={this.state.gameWinner} onStartPressed={() => this.startPressed()}/>;
   }
 
   render() {
