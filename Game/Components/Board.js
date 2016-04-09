@@ -23,6 +23,13 @@ function tileKey(row, col) {
   return row * SIZE_X + col;
 }
 
+function getPositionFromKey(key) {
+  return {
+    row: Math.floor(key / SIZE_X),
+    col: key % SIZE_X
+  };
+}
+
 function arraysAreEqual(arr1, arr2){
     if (arr1.length !== arr2.length) return false;
     for (var i = 0, len = arr1.length; i < len; i++){
@@ -33,12 +40,45 @@ function arraysAreEqual(arr1, arr2){
     return true;
 }
 
+function getRandomIntInclusive(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function randomizeTilePositions(props) {
+  const playerTileCount = props.playerTileCount;
+  const tilePositions = {};
+
+  for (var player of props.players) {
+    const playerTilePositions = [];
+    tilePositions[player.id] = playerTilePositions;
+
+    while (playerTilePositions.length < playerTileCount) {
+      const randomKey = getRandomIntInclusive(0, CELL_COUNT - 1);
+
+      var used = false;
+      for (var set in tilePositions) {
+        if (tilePositions[set].indexOf(randomKey) >= 0) {
+          used = true;
+          break;
+        }
+      }
+
+      if (!used) {
+        playerTilePositions.push(randomKey);
+      }
+    }
+  }
+
+  return tilePositions;
+}
+
 class Board extends Component {
 
   constructor(props) {
     super(props);
     this.updateTouchStates = this.updateTouchStates.bind(this);
     this.state = {
+      tilePositions: randomizeTilePositions(props),
       pressedTiles: []
     };
   }
@@ -58,6 +98,7 @@ class Board extends Component {
 
     if (!arraysAreEqual(pressedTiles, this.state.pressedTiles)) {
       this.setState({
+        tilePositions: this.state.tilePositions,
         pressedTiles: pressedTiles
       });
     }
@@ -65,6 +106,7 @@ class Board extends Component {
 
   onTouchReleased(event) {
     this.setState({
+      tilePositions: this.state.tilePositions,
       pressedTiles: []
     })
   }
@@ -72,14 +114,15 @@ class Board extends Component {
   renderTiles(sizeX, sizeY, cellSize, cellPadding, tileSize) {
     const tiles = [];
 
-    for (var row = 0; row < sizeY; row++) {
-      for (var col = 0; col < sizeX; col++) {
+    for (var player of this.props.players) {
+      for (var key of this.state.tilePositions[player.id]) {
+        const { row, col } = getPositionFromKey(key);
+
         const position = {
           left: col * cellSize + cellPadding,
           top: row * cellSize + cellPadding
         };
 
-        const key = tileKey(row, col);
         const pressed = this.state.pressedTiles.indexOf(key) >= 0;
 
         tiles.push(
@@ -87,6 +130,7 @@ class Board extends Component {
             key={key}
             position={position}
             size={tileSize}
+            color={player.color}
             pressed={pressed} />
         );
       }
@@ -124,7 +168,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   board: {
-
+    backgroundColor: '#000000',
   }
 });
 
