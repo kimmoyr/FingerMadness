@@ -83,6 +83,27 @@ class Board extends Component {
     };
   }
 
+  setPressedTiles(pressedTiles) {
+    this.setState({
+      tilePositions: this.state.tilePositions,
+      pressedTiles: pressedTiles
+    });
+
+    for (var player of this.props.players) {
+      let allPressed = true;
+      for (var tile of this.state.tilePositions[player.id]) {
+        if (pressedTiles.indexOf(tile) < 0) {
+          allPressed = false;
+          break;
+        }
+      }
+
+      if (allPressed) {
+        console.log("All pressed for player " + player.id);
+      }
+    }
+  }
+
   updateTouchStates(event) {
     const pressedTiles = [];
 
@@ -97,18 +118,12 @@ class Board extends Component {
     }
 
     if (!arraysAreEqual(pressedTiles, this.state.pressedTiles)) {
-      this.setState({
-        tilePositions: this.state.tilePositions,
-        pressedTiles: pressedTiles
-      });
+      this.setPressedTiles(pressedTiles);
     }
   }
 
   onTouchReleased(event) {
-    this.setState({
-      tilePositions: this.state.tilePositions,
-      pressedTiles: []
-    })
+    this.setPressedTiles([]);
   }
 
   renderTiles(sizeX, sizeY, cellSize, cellPadding, tileSize) {
