@@ -8,7 +8,7 @@ import Wait from './Wait';
 import Start from './Start';
 
 const ROUND_START_DELAY = 3000;
-const ROUNDS = 9;
+const ROUNDS = 5;
 
 const players = [
   {
