@@ -23,7 +23,8 @@ class Main extends Component {
     super(props);
     this.state = {
       showBoard: true,
-      scores: {}
+      scores: {},
+      lastWinner: null
     };
 
     for (var player of players) {
@@ -40,6 +41,7 @@ class Main extends Component {
     const state = this.state;
     state.scores[player.id]++;
     state.showBoard = false;
+    state.lastWinner = player;
     this.setState(state);
 
     console.log("Scores:");
@@ -50,10 +52,11 @@ class Main extends Component {
     this.timer = setTimeout(this.showNewBoard.bind(this), 5000);
   }
 
-  showNewBoard() {
+  showNewBoard(winner) {
     this.setState({
       showBoard: true,
-      scores: this.state.scores
+      scores: this.state.scores,
+      lastWinner: winner
     });
   }
 
@@ -67,7 +70,7 @@ class Main extends Component {
   }
 
   renderWaitScreen() {
-    return <Wait />;
+    return <Wait winner={this.state.lastWinner}/>;
   }
 
   render() {

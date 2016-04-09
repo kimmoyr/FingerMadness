@@ -6,7 +6,8 @@ import React, {
 
 class Wait extends Component {
   render() {
-    return <View style={styles.container}/>;
+    const color = this.props.winner ? this.props.winner.color : '#000000';
+    return <View style={[styles.container, { backgroundColor: color}]}/>;
   }
 }
 
