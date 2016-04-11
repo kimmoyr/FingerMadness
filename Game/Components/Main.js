@@ -1,4 +1,5 @@
 import React, {
+  BackAndroid,
   Component
 } from 'react-native';
 
@@ -37,6 +38,15 @@ class Main extends Component {
     for (var player of players) {
       this.state.scores[player.id] = 0;
     }
+
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      if (!this.state.gameOn) {
+         return false;
+      }
+
+      this.finishGame();
+      return true;
+    });
   }
 
   componentWillUnmount() {
@@ -62,11 +72,14 @@ class Main extends Component {
   }
 
   finishGame() {
+    clearTimeout(this.timer);
+
     const state = this.state;
     state.gameOn = false;
+    state.showBoard = false;
     state.round = 0;
 
-    let bestScore = 0;
+    let bestScore = -1;
     for (var player of players) {
       if (this.state.scores[player.id] > bestScore) {
         state.gameWinner = player;
