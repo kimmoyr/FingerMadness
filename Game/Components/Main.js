@@ -34,7 +34,9 @@ class Main extends Component {
       gameWinner: null
     };
 
-    this.reset();
+    for (var player of players) {
+      this.state.scores[player.id] = 0;
+    }
   }
 
   componentWillUnmount() {
