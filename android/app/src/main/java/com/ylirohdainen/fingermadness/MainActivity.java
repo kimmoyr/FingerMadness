@@ -1,4 +1,4 @@
-package com.fingermadness;
+package com.ylirohdainen.fingermadness;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactPackage;

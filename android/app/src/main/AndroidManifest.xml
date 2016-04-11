@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fingermadness">
+    package="com.ylirohdainen.fingermadness">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
