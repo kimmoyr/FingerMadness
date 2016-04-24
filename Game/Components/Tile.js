@@ -13,7 +13,7 @@ class Tile extends Component {
     };
 
     const color = {
-        backgroundColor: this.props.pressed ? 'white' : this.props.color
+        backgroundColor: this.props.pressed ? this.props.pressedColor : this.props.color
     }
 
     return (

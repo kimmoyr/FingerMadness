@@ -14,11 +14,13 @@ const ROUNDS = 5;
 const players = [
   {
     id: 1,
-    color: '#ec3a3a'
+    color: '#ec3a3a',
+    pressedColor: '#eb8e8e'
   },
   {
     id: 2,
-    color: '#1e30cf'
+    color: '#1e30cf',
+    pressedColor: '#7c84d0'
   }
 ];
 

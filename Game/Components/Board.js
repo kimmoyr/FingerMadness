@@ -146,6 +146,7 @@ class Board extends Component {
             position={position}
             size={tileSize}
             color={player.color}
+            pressedColor={player.pressedColor}
             pressed={pressed} />
         );
       }
