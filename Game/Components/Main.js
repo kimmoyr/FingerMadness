@@ -92,17 +92,11 @@ class Main extends Component {
   }
 
   onAllPressedForPlayer(player) {
-    console.log("All pressed for player " + player.id);
     const state = this.state;
     state.scores[player.id]++;
     state.showBoard = false;
     state.lastWinner = player;
     this.setState(state);
-
-    console.log("Scores:");
-    for (var p of players) {
-      console.log("   Player " + p.id + ": " + this.state.scores[p.id]);
-    }
 
     if (this.state.round < ROUNDS) {
       this.showNewBoardAfterDelay();
