@@ -626,6 +626,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = fi.vincit.FingerMadness;
 				PRODUCT_NAME = FingerMadness;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -644,6 +645,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = fi.vincit.FingerMadness;
 				PRODUCT_NAME = FingerMadness;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
