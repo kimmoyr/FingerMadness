@@ -9,9 +9,9 @@ import Dimensions from 'Dimensions';
 import Tile from './Tile';
 
 const {width, height} = Dimensions.get('window');
-const CELL_SIZE = 80;
-const SIZE_X = Math.floor(width / CELL_SIZE);
-const SIZE_Y = Math.floor(height / CELL_SIZE);
+const SIZE_X = 5; Math.floor(width / CELL_SIZE);
+const SIZE_Y = 8; Math.floor(height / CELL_SIZE);
+const CELL_SIZE = Math.min(Math.floor(width / SIZE_X), Math.floor(height / SIZE_Y));
 const CELL_COUNT = SIZE_X * SIZE_Y;
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.10);
 const BORDER_RADIUS = CELL_PADDING * 2;
