@@ -131,7 +131,8 @@ class Main extends Component {
       <Board
         players={players}
         playerTileCount={5}
-        allPressedForPlayer={this.onAllPressedForPlayer.bind(this)}/>
+        allPressedForPlayer={this.onAllPressedForPlayer.bind(this)}
+        onFinishPressed={this.finishGame.bind(this)}/>
     );
   }
 

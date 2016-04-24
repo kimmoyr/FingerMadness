@@ -1,6 +1,8 @@
 import React, {
   Component,
   StyleSheet,
+  Text,
+  TouchableOpacity,
   View
 } from 'react-native';
 
@@ -9,9 +11,10 @@ import Dimensions from 'Dimensions';
 import Tile from './Tile';
 
 const {width, height} = Dimensions.get('window');
+const HEIGHT_RESERVED_FOR_BUTTON = 50;
 const SIZE_X = 5; Math.floor(width / CELL_SIZE);
 const SIZE_Y = 8; Math.floor(height / CELL_SIZE);
-const CELL_SIZE = Math.min(Math.floor(width / SIZE_X), Math.floor(height / SIZE_Y));
+const CELL_SIZE = Math.min(Math.floor(width / SIZE_X), Math.floor((height - HEIGHT_RESERVED_FOR_BUTTON) / SIZE_Y));
 const CELL_COUNT = SIZE_X * SIZE_Y;
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.10);
 const BORDER_RADIUS = CELL_PADDING * 2;
@@ -163,6 +166,13 @@ class Board extends Component {
 
     return (
       <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.props.onFinishPressed}>
+          <Text style={styles.buttonText}>
+            Finish Game
+          </Text>
+        </TouchableOpacity>
         <View
           style={[styles.board, boardSize]}
           onStartShouldSetResponder={() => true}
@@ -180,12 +190,18 @@ class Board extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#000000',
     justifyContent: 'center',
     alignItems: 'center'
   },
   board: {
     backgroundColor: '#000000',
+  },
+  button: {
+  },
+  buttonText: {
+    color: '#ffffff'
   }
 });
 
