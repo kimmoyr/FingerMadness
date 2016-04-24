@@ -107,7 +107,7 @@ class Board extends Component {
   updateTouchStates(event) {
     const pressedTiles = [];
 
-    for (var touch of event.nativeEvent.changedTouches) {
+    for (var touch of event.nativeEvent.touches) {
       const x = touch.pageX;
       const y = touch.pageY;
 
