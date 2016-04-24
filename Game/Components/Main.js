@@ -1,6 +1,9 @@
 import React, {
   BackAndroid,
-  Component
+  Component,
+  StatusBar,
+  StyleSheet,
+  View
 } from 'react-native';
 
 
@@ -145,7 +148,7 @@ class Main extends Component {
     );
   }
 
-  render() {
+  renderContent() {
     if (!this.state.gameOn) {
       return this.renderStart();
     } else if (this.state.showBoard) {
@@ -154,6 +157,21 @@ class Main extends Component {
       return this.renderWaitScreen();
     }
   }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <StatusBar hidden={true}/>
+        {this.renderContent()}
+      </View>
+    );
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});
 
 module.exports = Main;
