@@ -108,8 +108,8 @@ class Board extends Component {
     const pressedTiles = [];
 
     for (var touch of event.nativeEvent.touches) {
-      const x = touch.pageX;
-      const y = touch.pageY;
+      const x = touch.locationX;
+      const y = touch.locationY;
 
       const col = Math.floor(x / CELL_SIZE);
       const row = Math.floor(y / CELL_SIZE)
@@ -167,7 +167,8 @@ class Board extends Component {
           onStartShouldSetResponder={() => true}
           onResponderGrant={this.updateTouchStates}
           onResponderMove={this.updateTouchStates}
-          onResponderRelease={this.onTouchReleased.bind(this)}>
+          onResponderRelease={this.onTouchReleased.bind(this)}
+          pointerEvents='box-only'>
           {this.renderTiles(SIZE_X, SIZE_Y, CELL_SIZE, CELL_PADDING, TILE_SIZE)}
         </View>
       </View>
