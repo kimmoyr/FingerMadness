@@ -110,9 +110,17 @@ class Board extends Component {
   updateTouchStates(event) {
     const pressedTiles = [];
 
+    if (!this.x || !this.y) {
+      return;
+    }
+
     for (var touch of event.nativeEvent.touches) {
-      const x = touch.locationX;
-      const y = touch.locationY;
+
+      // .locationX and .locationY should be used here
+      // but they do not work correctly on Android
+      // so we must calculate them on our own
+      const x = touch.pageX - this.x;
+      const y = touch.pageY - this.y;
 
       const col = Math.floor(x / CELL_SIZE);
       const row = Math.floor(y / CELL_SIZE)
@@ -179,7 +187,12 @@ class Board extends Component {
           onResponderGrant={this.updateTouchStates}
           onResponderMove={this.updateTouchStates}
           onResponderRelease={this.onTouchReleased.bind(this)}
-          pointerEvents='box-only'>
+          pointerEvents='box-only'
+          onLayout={(event) => {
+              var {x, y, width, height} = event.nativeEvent.layout;
+              this.x = x;
+              this.y = y;
+          }}>
           {this.renderTiles(SIZE_X, SIZE_Y, CELL_SIZE, CELL_PADDING, TILE_SIZE)}
         </View>
       </View>
