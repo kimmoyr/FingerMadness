@@ -110,7 +110,7 @@ class Board extends Component {
   updateTouchStates(event) {
     const pressedTiles = [];
 
-    if (!this.x || !this.y) {
+    if (this.x == null || this.y == null) {
       return;
     }
 
