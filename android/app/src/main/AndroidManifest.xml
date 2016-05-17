@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ylirohdainen.fingermadness">
 
+    <uses-feature android:name="android.hardware.touchscreen.multitouch.jazzhand" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- Remove unnecessary permissions added by React Native. -->
