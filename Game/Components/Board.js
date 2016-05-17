@@ -12,8 +12,8 @@ import Tile from './Tile';
 
 const {width, height} = Dimensions.get('window');
 const HEIGHT_RESERVED_FOR_BUTTON = 50;
-const SIZE_X = 5; Math.floor(width / CELL_SIZE);
-const SIZE_Y = 8; Math.floor(height / CELL_SIZE);
+const SIZE_X = 5;
+const SIZE_Y = 8;
 const CELL_SIZE = Math.min(Math.floor(width / SIZE_X), Math.floor((height - HEIGHT_RESERVED_FOR_BUTTON) / SIZE_Y));
 const CELL_COUNT = SIZE_X * SIZE_Y;
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.10);
